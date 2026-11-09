@@ -1,0 +1,230 @@
+{
+  "photos": [
+    {
+      "src": "assets/collection/photos/photo-02.jpg",
+      "caption": "Une nuit, un écran, une idée qui prenait doucement forme. 🌌",
+      "category": "Atmosphère",
+      "original": "IMG_20260813_051012_649@-2040134384.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-07.jpg",
+      "caption": "17 août 2026 — Ton sourire est trop envoûtant 😍🥲 Même la peluche et le chat ont l’air de vouloir poser avec toi.",
+      "category": "17 août 2026",
+      "original": "jessica-download-01.jpg"
+    },
+    {
+      "src": "assets/collection/photos/md11-work-01.jpg",
+      "caption": "18 août 2026 — C’était encore les débuts du site. Je travaillais sur le projet, une étape après l’autre, en essayant de donner une forme à cette idée.",
+      "category": "Coulisses du projet",
+      "original": "md11-work-01.jpg"
+    },
+    {
+      "src": "assets/collection/photos/md11-work-02.jpg",
+      "caption": "18 août 2026 — Une autre trace de mes débuts dans Visual Studio Code. À ce moment-là, je construisais encore les premières parties de cet univers.",
+      "category": "Coulisses du projet",
+      "original": "md11-work-02.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-12.jpg",
+      "caption": "27 juillet 2026 — Photo de toi téléchargée dans les archives. Ton sourire pourrait réveiller un zombie 😍✨✨ Garde ce sourire toute ta vie 🥲",
+      "category": "27 juillet 2026",
+      "original": "jessica-download-02.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-14.jpg",
+      "caption": "Sur cette photo, je dois avouer que ton allure attire vraiment le regard 🫣🤤… trop belle ✨✨",
+      "category": "Portrait",
+      "original": "archive-001-memory-01 .jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-15.jpg",
+      "caption": "Un souvenir du début, conservé parce que certains instants méritent de rester. 💙",
+      "category": "Archive 001",
+      "original": "archive-001-memory-02 .jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-17.jpeg",
+      "caption": "Un instant où tu sembles dans ton propre univers. J’aime bien cette façon que tu as de rendre une image singulière. ✨",
+      "category": "Portrait",
+      "original": "LBJ IMAGES PROJECT (1).jpeg"
+    },
+    {
+      "src": "assets/collection/photos/photo-19.jpg",
+      "caption": "Un instant partagé, un sourire qui reste et une image que je voulais garder ici. 🥲",
+      "category": "Souvenir",
+      "original": "LBJ IMAGES PROJECT (2).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-20.jpg",
+      "caption": "Déjà 18 ans, une nouvelle étape de ta vie. Je me demande avec le sourire tout ce que l’avenir te réserve… 😏✨",
+      "category": "Portrait",
+      "original": "LBJ IMAGES PROJECT (3).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-21.jpg",
+      "caption": "Un moment de calme, une silhouette dans le paysage et une petite place dans ces archives. 🌿",
+      "category": "Souvenir",
+      "original": "LBJ IMAGES PROJECT (4).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-22.jpg",
+      "caption": "Un portrait qui mérite qu’on s’y attarde un peu. 🖤",
+      "category": "Portrait",
+      "original": "LBJ IMAGES PROJECT (5).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-26.jpg",
+      "caption": "Une autre facette de toi, une autre couleur à garder dans l’album. 💙",
+      "category": "Portrait",
+      "original": "56324eb0-e131-11f0-b815-353ab45aa39a (1).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-27.jpg",
+      "caption": "Une image douce, un regard tranquille et un souvenir de plus. 🤍",
+      "category": "Portrait",
+      "original": "Snapchat-2116128892.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-28.jpg",
+      "caption": "Un petit éclat de couleur dans cette collection. 🌈",
+      "category": "Portrait",
+      "original": "Snapchat-327628251.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-29.jpg",
+      "caption": "Plusieurs expressions, plusieurs instants — et toujours cette énergie qui te ressemble. ✨",
+      "category": "Portrait",
+      "original": "aa333ef1e8824138bf649c1d2a6193b7.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-32.png",
+      "caption": "Une image pleine de caractère, à sa place dans cet album. 💛",
+      "category": "Souvenir",
+      "original": "0a93d18ae613ae5f05a8313860d3c16a37c8984f728c96114d1bd544a708b66f.png"
+    },
+    {
+      "src": "assets/collection/photos/photo-33.jpg",
+      "caption": "Un sourire lumineux, le genre de détail qui rend une photo précieuse. 😊",
+      "category": "Souvenir",
+      "original": "365aaba4d2914264b74bc9f15f9e44c5.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-34.jpg",
+      "caption": "Une expression spontanée, capturée sans avoir besoin d’en faire trop. 🥰",
+      "category": "Souvenir",
+      "original": "Snapchat-1175296936.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-35.jpg",
+      "caption": "Les souvenirs sont encore plus beaux quand ils racontent aussi les personnes autour de nous. 💞",
+      "category": "Souvenir",
+      "original": "Snapchat-1829509188.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-36.jpg",
+      "caption": "Un autre instant à feuilleter, avec ce sourire qui revient toujours. 🥲",
+      "category": "Souvenir",
+      "original": "Snapchat-486345991.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-37.jpg",
+      "caption": "Une dernière petite trace parmi celles que je voulais réunir ici. ✨",
+      "category": "Souvenir",
+      "original": "Snapchat-662019543 (1).jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-38.jpg",
+      "caption": "Un instant à l’abri des regards, conservé comme un petit souvenir. 🤍",
+      "category": "Portrait",
+      "original": "62e3d06e54d2433c96fb10d14d428a0c.jpg"
+    },
+    {
+      "src": "assets/collection/photos/photo-39.jpg",
+      "caption": "Un autre fragment de toi, à retrouver au fil de ces archives. ✨",
+      "category": "Souvenir",
+      "original": "snaptik-app-7697705943957540112-slide-1.jpg"
+    }
+  ],
+  "videos": [
+    {
+      "src": "assets/collection/videos/video-01.mp4",
+      "caption": "Un premier fragment de toi, gardé avec soin. 💙",
+      "original": "LBJ VIDEOS PROJECT (1).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-02.mp4",
+      "caption": "Tu es tellement belle 😍🥰✨ que je n’ai plus de mots… Et il y a quelque chose dans cette vidéo qui me retient 🤤🤤🤤",
+      "original": "LBJ VIDEOS PROJECT (10).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-03.mp4",
+      "caption": "Un souvenir partagé, tout simplement. 🥰",
+      "original": "LBJ VIDEOS PROJECT (11).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-04.mp4",
+      "caption": "Ton sourire au milieu d’une journée ordinaire. 😊",
+      "original": "LBJ VIDEOS PROJECT (12).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-05.mp4",
+      "caption": "Une expression, un instant, et cette présence qui reste. ✨",
+      "original": "LBJ VIDEOS PROJECT (13).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-06.mp4",
+      "caption": "Un petit clin d’œil au 11 novembre. 🎂",
+      "original": "LBJ VIDEOS PROJECT (14).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-07.mp4",
+      "caption": "Un moment en mouvement, à revoir sans se presser. 💫",
+      "original": "LBJ VIDEOS PROJECT (15).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-08.mp4",
+      "caption": "Une séquence pleine de caractère. 😌",
+      "original": "LBJ VIDEOS PROJECT (16).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-09.mp4",
+      "caption": "Un souvenir à deux voix, et une image qui fait sourire. 💞",
+      "original": "LBJ VIDEOS PROJECT (2).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-10.mp4",
+      "caption": "Un instant spontané, sans mise en scène. 🌿",
+      "original": "LBJ VIDEOS PROJECT (3).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-11.mp4",
+      "caption": "Une autre facette de toi, conservée ici. 💙",
+      "original": "LBJ VIDEOS PROJECT (4).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-12.mp4",
+      "caption": "Une séquence douce, comme une parenthèse. 🤍",
+      "original": "LBJ VIDEOS PROJECT (5).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-13.mp4",
+      "caption": "Un portrait qui mérite sa place dans cette collection. ✨",
+      "original": "LBJ VIDEOS PROJECT (6).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-14.mp4",
+      "caption": "Un petit moment de complicité, gardé dans les archives. 🥲",
+      "original": "LBJ VIDEOS PROJECT (7).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-15.mp4",
+      "caption": "Les coulisses du quotidien, un fragment de plus. 🎞️",
+      "original": "LBJ VIDEOS PROJECT (8).mp4"
+    },
+    {
+      "src": "assets/collection/videos/video-16.mp4",
+      "caption": "Un dernier fragment pour compléter cette collection. 🌟",
+      "original": "LBJ VIDEOS PROJECT (9).mp4"
+    }
+  ]
+}

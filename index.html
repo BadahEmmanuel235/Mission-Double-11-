@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="MISSION DOUBLE 11 — Une expérience créée pour le 11 novembre 2026.">
+    <meta name="theme-color" content="#02050a">
+    <title>MISSION DOUBLE 11</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="countdownGate" class="countdown-gate" aria-label="Compte à rebours MD11">
+        <div class="countdown-gate__panel">
+            <div class="countdown-gate__brand">MISSION DOUBLE 11 // TEMPORAL LOCK</div>
+            <div class="countdown-gate__orb" aria-hidden="true"><span>11</span></div>
+            <p class="countdown-gate__eyebrow">OUVERTURE PROGRAMMÉE</p>
+            <h1>Chaque seconde nous rapproche.</h1>
+            <div id="countdownValues" class="countdown-values">
+                <div><strong id="countDays">00</strong><span>JOURS</span></div>
+                <div><strong id="countWeekday">—</strong><span>JOUR</span></div>
+                <div><strong id="countHours">00</strong><span>HEURES</span></div>
+                <div><strong id="countMinutes">00</strong><span>MINUTES</span></div>
+                <div><strong id="countSeconds">00</strong><span>SECONDES</span></div>
+            </div>
+            <div class="countdown-gate__line"><span id="countdownProgress"></span></div>
+            <button id="countdownSoundButton" class="countdown-sound-button" type="button">ACTIVER LE TIC-TAC</button>
+            <p id="countdownDateLabel" class="countdown-gate__date">11 novembre 2026</p>
+            <form id="countdownAdminForm" class="countdown-admin-form" autocomplete="off">
+                <label for="countdownAdminCode">Accès technique</label>
+                <div><input id="countdownAdminCode" type="password" placeholder="Code d’accès" autocomplete="off"><button type="submit">ENTRER</button></div>
+                <small id="countdownAdminFeedback" aria-live="polite"></small>
+            </form>
+        </div>
+    </section>
+
+    <div id="systemOverlay" class="system-overlay" aria-hidden="true">
+        <span id="systemOverlayText"></span>
+    </div>
+
+    <!-- Audio files are copied into Site/audio for stable runtime paths. -->
+    <audio id="audioAmbience" src="audio/ambience/kitsunemusic-sci-fi-ambience-stars-are-blinking-270037.mp3" loop preload="auto"></audio>
+    <audio id="audioClick" src="audio/sfx/mixkit-sci-fi-click-900.wav" preload="auto"></audio>
+    <audio id="audioWhoosh" src="audio/sfx/mixkit-arrow-whoosh-1491.wav" preload="auto"></audio>
+    <audio id="audioZoom" src="audio/sfx/mixkit-ui-zoom-out-2619.wav" preload="auto"></audio>
+    <audio id="audioBirthdaySong" preload="none"></audio>
+    <audio id="audioTyping" src="audio/sfx/keyboard-typing-sample.mp3" preload="auto"></audio>
+
+    <!-- PROLOGUE VIDEO — uploaded sequence, original embedded audio preserved -->
+    <section id="prologue" class="screen prologue-screen is-active" aria-hidden="false">
+        <div class="entry-video-shell">
+            <video
+                id="entrySequenceVideo"
+                class="entry-sequence-video"
+                src="entry-sequence.mp4"
+                poster="assets/room.jpg"
+                playsinline
+                preload="metadata"
+                aria-label="Séquence d’entrée de Mission Double 11"
+            ></video>
+            <div class="entry-video-vignette" aria-hidden="true"></div>
+            <div class="entry-video-hud" aria-hidden="true">
+                <span class="entry-video-brand">MD11</span>
+                <span class="entry-video-date">11 NOVEMBRE // DESTINATION LOCKED</span>
+            </div>
+            <div id="missionGate" class="mission-gate entry-video-gate">
+                <div class="mission-gate__eyebrow">MISSION DOUBLE 11</div>
+                <h1>Une histoire qui commence<br>bien avant le 11 novembre.</h1>
+                <p class="entry-video-note">Le son de la séquence démarre après ton clic.</p>
+                <button id="startButton" class="md11-button md11-button--primary" type="button">COMMENCER</button>
+            </div>
+            <div id="entryVideoError" class="entry-video-error" role="status" aria-live="polite" hidden>
+                La séquence n’a pas pu démarrer. Vérifie que le fichier
+                <strong>assets/entry-sequence.mp4</strong> est présent et lance le site avec un serveur local.
+                <button id="entryVideoRetry" class="md11-button" type="button">RÉESSAYER</button>
+                <button id="entryVideoSkip" class="md11-button" type="button">CONTINUER SANS LA VIDÉO</button>
+            </div>
+            <button id="continueIndicator" class="continue-indicator" type="button" aria-hidden="true" hidden>
+                <span>CONTINUE</span>
+                <i></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- BOOT -->
+    <section id="bootScreen" class="screen boot-screen" aria-hidden="true">
+        <div class="boot-core">
+            <div class="boot-brand">MD11</div>
+            <div id="bootTerminal" class="boot-terminal" aria-live="polite">
+                <div class="boot-line">MD11 CORE // INITIALIZING</div>
+                <div class="boot-line">MEMORY MODULE ........ OK</div>
+                <div class="boot-line">ARCHIVE MODULE ....... OK</div>
+                <div class="boot-line">IDENTITY MODULE ...... OK</div>
+                <div class="boot-line">EMOTIONAL CORE ....... ???</div>
+                <div class="boot-line">JESSY IA ............. ONLINE</div>
+            </div>
+            <div class="boot-progress"><span id="bootProgressBar"></span></div>
+        </div>
+    </section>
+
+    <!-- JESSY IA -->
+    <section id="aiIntro" class="screen ai-screen" aria-hidden="true">
+        <div class="ai-screen__core">
+            <div class="ai-screen__signal">JESSY IA</div>
+            <div id="aiDialogue" class="ai-dialogue">
+                <div id="aiLineOne"></div>
+                <div id="aiLineTwo"></div>
+            </div>
+            <div class="ai-screen__cursor"></div>
+        </div>
+    </section>
+
+    <!-- IDENTITY -->
+    <section id="identityScreen" class="screen interface-screen" aria-hidden="true">
+        <div class="interface-panel identity-panel">
+            <div class="panel-code">IDENTITY VERIFICATION REQUIRED</div>
+            <h2>Qui es-tu ?</h2>
+            <p>Le système peut ouvrir une partie de la station. Tout le reste doit être mérité.</p>
+            <div class="identity-actions">
+                <button id="jessicaPathButton" class="md11-button" type="button">C'EST MOI, JESSICA</button>
+                <button id="visitorPathButton" class="md11-button" type="button">J'SUIS PAS JESSICA</button>
+            </div>
+            <div id="identityMessage" class="feedback" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- JESSICA ACCESS -->
+    <section id="jessicaAccess" class="screen interface-screen" aria-hidden="true">
+        <div class="interface-panel access-panel">
+            <div class="panel-code">PRIVATE ACCESS // JESSY</div>
+
+            <div id="codeStep01" class="code-step is-active">
+                <span class="code-step__number">01</span>
+                <h2>SI C'EST VRAIMENT TOI, BOMIAN…</h2>
+                <p>Je parle de <strong>LBJ</strong>… entre le premier code.<br><span class="access-warning">MISE EN GARDE : si tu sais que tu n'es pas elle, passe ton chemin.</span></p>
+                <form id="accessForm" autocomplete="off">
+                    <input id="accessCode" type="text" inputmode="text" spellcheck="false" maxlength="12" aria-label="Code 01">
+                    <button class="md11-button md11-button--primary" type="submit">VALIDER</button>
+                </form>
+                <div id="accessFeedback" class="feedback" aria-live="polite"></div><button id="accessBackButton" class="md11-button md11-button--quiet access-back" type="button">← RETOUR</button>
+            </div>
+
+            <div id="codeStep02" class="code-step">
+                <span class="code-step__number">02</span>
+                <h2>UN DEUXIÈME VERROU.</h2>
+                <p>Tu connais la suite.</p>
+                <form id="accessSecondForm" autocomplete="off">
+                    <input id="accessSecondInput" type="text" inputmode="text" spellcheck="false" maxlength="12" aria-label="Code 02">
+                    <button class="md11-button md11-button--primary" type="submit">OUVRIR</button>
+                </form>
+                <div id="accessSecondFeedback" class="feedback" aria-live="polite"></div><button id="accessSecondBackButton" class="md11-button md11-button--quiet access-back" type="button">← RETOUR</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISITOR -->
+    <section id="visitorAccess" class="screen interface-screen" aria-hidden="true">
+        <div class="interface-panel">
+            <div class="panel-code">PUBLIC ACCESS</div>
+            <h2>Tu peux entrer.</h2>
+            <p>Mais certaines portes savent qui elles attendent.</p>
+            <button id="visitorContinueButton" class="md11-button md11-button--primary" type="button">ENTRER DANS LA STATION</button>
+        </div>
+    </section>
+
+    <!-- HUB -->
+    <section id="station" class="screen station" aria-hidden="true">
+        <div class="station__background"></div>
+        <div class="station__stars"></div>
+        <div class="station__particles"></div>
+        <div class="station__scanlines"></div>
+        <div class="station__orbital-grid" aria-hidden="true"></div>
+        <div class="station__horizon" aria-hidden="true"></div>
+
+        <header class="station-header">
+            <div>
+                <div class="station-header__brand">MISSION DOUBLE 11</div>
+                <div class="station-header__logo">MD11</div>
+            </div>
+            <div class="station-header__status">
+                <div><span class="status-dot"></span> CONNECTÉ</div>
+                <div id="stationIdentity">IDENTITY : VERIFIED</div>
+                <button id="adminSettingsButton" class="admin-settings-button" type="button" hidden>⚙ PARAMÈTRES</button>
+            </div>
+        </header>
+
+        <main class="station-main">
+            <div class="birthday-greeting" role="note">
+                <span class="birthday-greeting__ornament">🎂 🎉 🥳</span>
+                <p class="birthday-greeting__welcome">🎂🎉 Je t’attendais, Jessica. Bonne arrivée et joyeux anniversaire ! 🥳💙</p>
+                <p>Aujourd’hui, t’as déjà 18 ans. Un jour spécial pour une surprise spéciale : c’est une étape inoubliable, et toi aussi, tu es spéciale 🙃😉. À personne spéciale, surprise spéciale — et j’espère, inoubliable 😊</p>
+            </div>
+            <div class="station-core" aria-label="Noyau central MD11">
+                <div class="station-core__orbit station-core__orbit--one"></div>
+                <div class="station-core__orbit station-core__orbit--two"></div>
+                <div class="station-core__orbit station-core__orbit--three"></div>
+                <div class="station-core__rings"></div>
+                <div class="station-core__scan"></div>
+                <div class="station-core__glyph">MD11</div>
+                <div class="station-core__date">31 MAI 2026 <span>→</span> 11 NOV 2026</div>
+                <div class="station-core__label">CORE // <span>ONLINE</span></div>
+            </div>
+
+            <aside class="jessy-station-panel" aria-live="polite">
+                <div class="jessy-station-panel__head">
+                    <span>JESSY IA</span><b>ONLINE</b>
+                    <button id="jessyPanelToggle" class="jessy-station-panel__toggle" type="button" aria-expanded="false" aria-controls="jessyPanelBody" title="Déployer Jessy IA">OUVRIR</button>
+                </div>
+                <div id="jessyPanelBody" class="jessy-station-panel__body" hidden>
+                    <div class="jessy-station-panel__signal"><i></i><i></i><i></i><i></i></div>
+                    <p id="stationAiMessage">Enfin. Je suis là.</p>
+                    <small id="stationAiContext">SYSTÈME : EN ATTENTE D'ACTION</small>
+                    <div class="jessy-chat">
+                        <div id="jessyChatLog" class="jessy-chat__log" aria-live="polite"></div>
+                        <form id="jessyChatForm" class="jessy-chat__form">
+                            <input id="jessyChatInput" type="text" maxlength="240" placeholder="Parle-moi de la mission…" autocomplete="off" aria-label="Message à Jessy IA">
+                            <button type="submit" aria-label="Envoyer">↗</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+
+            <nav id="stationModules" class="station-modules" aria-label="Modules MD11">
+                <button class="station-module station-module--available" data-module="archives" type="button">
+                    <span class="module-index">01</span><strong>ARCHIVES</strong><small>ORIGIN TRACE</small>
+                </button>
+                <button class="station-module station-module--available" data-module="memories" type="button">
+                    <span class="module-index">02</span><strong>MEMORIES</strong><small>AVAILABLE</small>
+                </button>
+                <button class="station-module station-module--available" data-module="missions" type="button">
+                    <span class="module-index">03</span><strong>MISSIONS</strong><small>AVAILABLE</small>
+                </button>
+                <button class="station-module station-module--signal" data-module="music" type="button">
+                    <span class="module-index">04</span><strong>MUSIC</strong><small>SIGNAL DÉTECTÉ</small>
+                </button>
+                <button class="station-module station-module--locked" data-module="classified" type="button">
+                    <span class="module-index">05</span><strong>CLASSIFIED</strong><small>ACCÈS RESTREINT</small>
+                </button>
+                <button class="station-module station-module--locked" data-module="transmission" type="button">
+                    <span class="module-index">06</span><strong>TRANSMISSION</strong><small>LOCKED</small>
+                </button>
+            </nav>
+        </main>
+
+        <footer class="station-footer">
+            <div class="station-footer__date">MD11 // 31 mai 2026 → 11 novembre 2026</div>
+            <div class="station-footer__controls">
+                <div class="song-volume" aria-label="Volume de la chanson d'anniversaire">
+                    <div class="song-volume__top">
+                        <span>CHRONO-SONG // VOLUME</span>
+                        <strong id="songVolumeValue">75%</strong>
+                    </div>
+                    <input id="songVolume" type="range" min="0" max="100" value="75" step="1" aria-label="Volume de la chanson d'anniversaire">
+                    <small id="songVolumeStatus">EN ATTENTE DE LA CHANSON</small>
+                </div>
+                <div class="station-sync">
+                    <span id="syncValue">00%</span>
+                    <div class="sync-bar"><span id="syncBar"></span></div>
+                    <small>SYNCHRONISATION</small>
+                </div>
+            </div>
+        </footer>
+        <button id="photoSecretTrigger" class="photo-secret-trigger" type="button" aria-label="Un petit secret">·</button>
+    </section>
+
+    <!-- MODULE WINDOW -->
+    <div id="moduleLayer" class="module-layer" aria-hidden="true">
+        <div id="moduleBackdrop" class="module-backdrop"></div>
+        <section id="moduleWindow" class="module-window" role="dialog" aria-modal="true" aria-hidden="true">
+            <header class="module-window__header">
+                <div>
+                    <div id="moduleWindowCode" class="module-window__code">MODULE // 00</div>
+                    <h2 id="moduleWindowTitle">MODULE</h2>
+                </div>
+                <button id="moduleCloseButton" class="module-close" type="button" aria-label="Fermer">×</button>
+            </header>
+            <div id="moduleContent" class="module-window__content"></div>
+        </section>
+    </div>
+
+    <!-- ARCHIVE 001 TEMPLATE -->
+    <template id="archive001Template">
+        <article class="archive-screen">
+            <header class="archive-header">
+                <div>
+                    <div class="archive-header__code">ARCHIVE // 001</div>
+                    <div class="archive-date">31 mai 2026</div>
+                </div>
+                <div class="archive-header__origin">ORIGIN OF MD11</div>
+            </header>
+
+            <section class="archive-hero">
+                <div class="archive-hero__system">MEMORY TRACE FOUND</div>
+                <div class="archive-hero__source">SOURCE // ORIGINAL CONVERSATION</div>
+                <h3>LE JOUR OÙ J'AI EU L'IDÉE DE FAIRE ÇA</h3>
+                <p class="archive-hero__lead">Le 31 mai 2026, le projet n'existait pas encore. Il n'y avait qu'une idée.</p>
+            </section>
+
+            <section class="archive-origin">
+                <div class="origin-message">
+                    <span>31 MAI 2026 // DÉBUT DU PROJET</span>
+                    <p>Je veux faire un site d'anniversaire pour elle, un truc incroyable. Donc ChatGPT, on va taffer grave.</p>
+                </div>
+                <div class="origin-message origin-message--long">
+                    <span>DATE DE DÉPART // 31 MAI 2026</span>
+                    <p>À cette date, le projet commence réellement. Le site, la chanson et les autres surprises ne sont encore que des intentions. Le reste de l'univers viendra ensuite.</p>
+                </div>
+                <div class="origin-quote">« J'aimerais lui faire des surprises inoubliables. »</div>
+            </section>
+
+            <section class="archive-intentions">
+                <div class="archive-section-label">INITIAL INTENTIONS</div>
+                <div class="intent-grid">
+                    <div><b>01</b><strong>LE SITE</strong><span>Un site époustouflant avec des montages incroyables.</span></div>
+                    <div><b>02</b><strong>LA CHANSON</strong><span>Prendre le temps de construire les paroles.</span></div>
+                    <div><b>03</b><strong>LES AUTRES SURPRISES</strong><span>Imaginer encore d'autres choses.</span></div>
+                </div>
+            </section>
+
+            <section class="archive-window">
+                <div><span>PROJECT WINDOW</span><strong>31 mai 2026 → 11 novembre 2026</strong></div>
+                <div><span>ELAPSED DAYS</span><strong id="archiveElapsedDays">000</strong></div>
+            </section>
+
+            <section class="archive-empty">
+                <div class="archive-section-label">AT THAT TIME</div>
+                <div class="empty-grid">
+                    <span>ARCHIVES ........ EMPTY</span>
+                    <span>MEMORIES ........ EMPTY</span>
+                    <span>MISSIONS ........ EMPTY</span>
+                    <span>MUSIC ........... SIGNAL NOT FOUND</span>
+                    <span>CLASSIFIED ...... LOCKED</span>
+                    <span>TRANSMISSION .... NOT CREATED</span>
+                </div>
+                <div class="empty-conclusion">THE UNIVERSE DID NOT EXIST YET.<br>ONLY THE IDEA DID.</div>
+            </section>
+
+            <section class="archive-media">
+                <div class="archive-section-label">MEMORY FRAGMENTS // ORIGINAL MEDIA</div>
+                <div class="memory-fragments">
+                    <button class="memory-fragment" data-photo="assets/collection/photos/photo-14.jpg" data-photo-code="MEMORY FRAGMENT // ORIGINAL 01" data-photo-caption="Sur cette photo, je dois avouer que ton allure attire vraiment le regard 🫣🤤… trop belle ✨✨" type="button">
+                        <span>ORIGINAL // 01</span>
+                        <img src="assets/collection/photos/photo-14.jpg" alt="" draggable="false" data-asset-date="source-01">
+                        <small>ORIGINAL MEDIA // VERIFIED</small>
+                    </button>
+                    <button class="memory-fragment" data-photo="assets/collection/photos/photo-17.jpeg" data-photo-code="MEMORY FRAGMENT // ORIGINAL 02" data-photo-caption="Déjà 18 ans, une nouvelle étape de ta vie. Je me demande avec le sourire tout ce que l’avenir te réserve… 😏✨" type="button">
+                        <span>ORIGINAL // 02</span>
+                        <img src="assets/collection/photos/photo-17.jpeg" alt="" draggable="false" data-asset-date="source-02">
+                        <small>ORIGINAL MEDIA // VERIFIED</small>
+                    </button>
+                    <button class="memory-fragment" data-photo="assets/collection/photos/md11-work-01.jpg" data-photo-code="MEMORY // 18 AOÛT 2026 // WORK TRACE 01" data-photo-caption="18 août 2026 — C’était encore les débuts du site. Je travaillais sur le projet, une étape après l’autre." type="button">
+                        <span>18 AOÛT 2026 // WORK TRACE 01</span>
+                        <img src="assets/collection/photos/md11-work-01.jpg" alt="" draggable="false" data-asset-date="18-08-2026-work-01">
+                        <small>TRAVAIL SUR LE PROJET // DATE MÉMORISÉE</small>
+                    </button>
+                    <button class="memory-fragment" data-photo="assets/collection/photos/md11-work-02.jpg" data-photo-code="MEMORY // 18 AOÛT 2026 // WORK TRACE 02" data-photo-caption="18 août 2026 — Une autre trace de mes débuts dans Visual Studio Code. Chaque détail prenait forme petit à petit." type="button">
+                        <span>18 AOÛT 2026 // WORK TRACE 02</span>
+                        <img src="assets/collection/photos/md11-work-02.jpg" alt="" draggable="false" data-asset-date="18-08-2026-work-02">
+                        <small>TRAVAIL SUR LE PROJET // DATE MÉMORISÉE</small>
+                    </button>
+                    <button class="memory-fragment" data-photo="assets/collection/photos/photo-07.jpg" data-photo-code="MEMORY // 17 AOÛT 2026 // PHOTO" data-photo-caption="17 août 2026 — Ton sourire est trop envoûtant 😍🥲" type="button">
+                        <span>17 AOÛT 2026 // PHOTO</span>
+                        <img src="assets/collection/photos/photo-07.jpg" alt="" draggable="false" data-asset-date="17-08-2026-jessica">
+                        <small>PHOTO AJOUTÉE AUX ARCHIVES</small>
+                    </button>
+                    <button class="memory-fragment" data-photo="assets/collection/photos/photo-12.jpg" data-photo-code="MEMORY // 27 JUILLET 2026 // PHOTO" data-photo-caption="27 juillet 2026 — Photo de toi téléchargée dans les archives. Ton sourire pourrait réveiller un zombie 😍✨✨ Garde ce sourire toute ta vie 🥲" type="button">
+                        <span>27 JUILLET 2026 // PHOTO</span>
+                        <img src="assets/collection/photos/photo-12.jpg" alt="" draggable="false" data-asset-date="27-07-2026-jessica">
+                        <small>PHOTO AJOUTÉE AUX ARCHIVES</small>
+                    </button>
+                </div>
+            </section>
+
+            <section class="archive-narrative">
+                <p>Sur cette photo, je dois avouer que ton allure attire vraiment le regard 🫣🤤… trop belle ✨✨</p>
+                <p>Je ne savais pas encore ce que ça allait devenir.</p>
+                <p>Mais l'idée était déjà là.</p>
+                <p>Je voulais que ce soit inoubliable.</p>
+                <p>Alors j'ai commencé.</p>
+            </section>
+
+            <section class="archive-timeline">
+                <div class="archive-section-label">TRACE DEVELOPMENT // DATES CONSIGNÉES</div>
+                <div class="timeline-grid">
+                    <div><span>31 MAI 2026</span><strong>NAISSANCE DE L’IDÉE</strong></div>
+                    <div><span>27 JUILLET 2026</span><strong>PHOTO AJOUTÉE AUX ARCHIVES</strong></div>
+                    <div><span>17 AOÛT 2026</span><strong>ARCHIVE PHOTO</strong></div>
+                    <div><span>18 AOÛT 2026</span><strong>CAPTURES DES COULISSES DU SITE</strong></div>
+                    <div><span>26–27 AOÛT 2026</span><strong>REPRISE ET ORIENTATION DU PROJET</strong></div>
+                    <div><span>04–06 SEPTEMBRE 2026</span><strong>TRAVAIL SUR LE MOTEUR ET L’EXPÉRIENCE</strong></div>
+                    <div><span>08–10 SEPTEMBRE 2026</span><strong>POURSUITE DE LA CONSTRUCTION</strong></div>
+                    <div><span>17–18 SEPTEMBRE 2026</span><strong>VERROUILLAGE DES CHOIX VISUELS</strong></div>
+                    <div><span>24 SEPTEMBRE 2026</span><strong>REPRISE DE L’INTÉGRATION</strong></div>
+                    <div><span>30 OCTOBRE 2026</span><strong>ASSEMBLAGE FINAL</strong></div>
+                    <div><span>11 NOVEMBRE 2026</span><strong>DATE DE DESTINATION</strong></div>
+                </div>
+            </section>
+
+            <section id="archiveSecret" class="archive-secret">
+                <div class="archive-section-label">UNREGISTERED MEMORY DETECTED</div>
+                <p>PRIVATE MEMORY // NOT INDEXED</p>
+                <button id="revealMemoryButton" class="md11-button" type="button">OUVRIR LA TRACE CACHÉE</button>
+                <div id="hiddenMemory" class="hidden-memory" aria-hidden="true">
+                    <p>Tu pensais vraiment que j'allais mettre toute l'histoire ici ?</p>
+                    <p>Certaines choses sont mieux découvertes.</p>
+                    <span>MEMORY SEALED</span>
+                </div>
+            </section>
+
+            <section id="archiveComplete" class="archive-complete">
+                <div>ARCHIVE // 001 STATUS : COMPLETE</div>
+                <strong>31 mai 2026</strong>
+                <span>ORIGIN OF MD11</span>
+                <div id="archiveSync">SYNCHRONISATION : +01%</div>
+                <button id="archiveReturn" class="archive-return md11-button" type="button">RETOUR AUX ARCHIVES</button>
+            </section>
+        </article>
+    </template>
+
+    <!-- PHOTO VIEWER -->
+    <div id="photoModal" class="photo-modal" aria-hidden="true">
+        <div id="photoModalBackdrop" class="photo-modal__backdrop"></div>
+        <div class="photo-modal__window" role="dialog" aria-modal="true">
+            <div class="photo-modal__header">
+                <span id="photoModalCode">MEMORY // 000</span>
+                <button id="photoModalClose" class="module-close" type="button" aria-label="Fermer">×</button>
+            </div>
+            <img id="photoModalImage" src="" alt="">
+            <p id="photoModalCaption"></p>
+        </div>
+    </div>
+
+    <div id="notification" class="notification" aria-hidden="true">
+        <span id="notificationText"></span>
+    </div>
+
+    <section id="feedbackModal" class="feedback-modal" aria-hidden="true">
+        <div class="feedback-modal__backdrop"></div>
+        <form id="feedbackForm" class="feedback-modal__panel">
+            <span class="feedback-modal__eyebrow">DERNIÈRE TRANSMISSION // MD11</span>
+            <div class="feedback-modal__icon">✉</div>
+            <h2>Avant de refermer cette histoire…</h2>
+            <p>J’aimerais savoir ce que tu as pensé de tout ce que j’ai préparé pour toi depuis le 31 mai jusqu’à aujourd’hui. Ce que tu as ressenti en découvrant chaque partie, ce qui t’a touchée, surprise ou fait sourire… Écris-moi librement. Je lirai tes mots avec attention. 💙</p>
+            <textarea id="feedbackMessage" rows="6" minlength="3" maxlength="1000" required placeholder="Je veux te laisser ces quelques mots…"></textarea>
+            <div class="feedback-modal__actions">
+                <button type="submit" class="md11-button md11-button--primary">ENVOYER MON MESSAGE</button>
+                <button id="feedbackLater" type="button" class="md11-button md11-button--quiet">JE TE LE DIRAI PLUS TARD</button>
+            </div>
+            <small id="feedbackStatus" aria-live="polite"></small>
+        </form>
+    </section>
+
+    <script src="md11-config.js" defer></script>
+    <script src="collection-data.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="enhancements.js" defer></script>
+</body>
+</html>
