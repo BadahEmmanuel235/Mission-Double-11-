@@ -1216,3 +1216,19 @@ body.md11-admin-mode .admin-settings-button{display:inline-block}
 .md11-photo-exit img{position:absolute;left:var(--photo-x);top:var(--photo-y);width:clamp(42px,11vw,92px);height:clamp(54px,14vw,118px);object-fit:cover;border:2px solid rgba(255,230,175,.85);box-shadow:0 0 18px rgba(255,220,140,.5);opacity:0;transform:translateY(35vh) rotate(-12deg) scale(.4);animation:md11PhotoFly 4.8s calc(var(--i)*.055s) cubic-bezier(.2,.7,.2,1) forwards;}
 @keyframes md11PhotoFly{15%{opacity:1}55%{transform:translateY(-5vh) rotate(8deg) scale(1)}100%{opacity:0;transform:translateY(-45vh) rotate(22deg) scale(.65)}}
 @media(prefers-reduced-motion:reduce){.md11-celebration-layer,.md11-photo-exit{display:none!important}.md11-portrait-backdrop::before{transition:none}}
+
+/* MD11 consolidated hotfix — 10 novembre 2026 */
+body.md11-auth-backdrop #jessicaAccess{position:relative;isolation:isolate;background:transparent;}
+body.md11-auth-backdrop #jessicaAccess::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(2,5,10,.55),rgba(2,5,10,.88)),url("assets/jessica-auth-bw.jpg") center 24%/cover no-repeat;}
+body.md11-auth-backdrop #jessicaAccess::after{content:"🤤🤭 récupérer de tes statuts WhatsApp";position:absolute;left:1rem;right:1rem;bottom:1.2rem;text-align:center;color:#fff;font-size:clamp(.82rem,2.8vw,1rem);letter-spacing:.02em;text-shadow:0 2px 12px #000;pointer-events:none;}
+body.md11-portrait-backdrop::before{background-image:linear-gradient(180deg,rgba(1,4,10,.58),rgba(1,4,10,.86)),url("assets/jessica-mission.jpg");background-position:center 24%;}
+body.md11-public-mode #stationIdentity,body.md11-public-mode .jessy-station-panel,body.md11-public-mode .birthday-greeting,body.md11-public-mode .station-core{display:none!important;}
+.md11-public-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding:1rem;}
+.md11-public-gallery img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;}
+.md11-post-song-card{position:fixed;z-index:1500;inset:8vh 7vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:1rem;border:1px solid rgba(255,225,170,.65);border-radius:20px;background:rgba(3,7,13,.88);box-shadow:0 0 45px rgba(255,210,140,.35);opacity:0;transform:scale(.92);transition:opacity .9s ease,transform .9s ease;pointer-events:none;}
+.md11-post-song-card.is-visible{opacity:1;transform:scale(1);animation:md11CardPulse 2.8s ease-in-out infinite;}
+.md11-post-song-card img{max-width:100%;max-height:62%;object-fit:contain;border-radius:12px;box-shadow:0 0 28px rgba(255,225,170,.3);}
+.md11-post-song-card p{margin:0;color:#fff;text-align:center;font-size:clamp(1rem,3vw,1.25rem);}
+.md11-post-song-card__flowers{color:#f1d5a5;letter-spacing:.5rem;font-size:1.4rem;text-align:center;}
+@keyframes md11CardPulse{0%,100%{box-shadow:0 0 25px rgba(255,210,140,.22);filter:brightness(1)}50%{box-shadow:0 0 55px rgba(255,225,170,.65);filter:brightness(1.18)}}
+@media(prefers-reduced-motion:reduce){.md11-post-song-card.is-visible{animation:none;}}
