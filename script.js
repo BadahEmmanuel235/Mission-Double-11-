@@ -758,6 +758,17 @@
                 this.video.volume = 1;
                 this.video.controls = false;
                 this.video.playsInline = true;
+                this.video.classList.remove("is-ending");
+                this.video.ontimeupdate = () => {
+                    const remaining = this.video.duration - this.video.currentTime;
+                    const fadeDuration = 2.8;
+                    if (Number.isFinite(remaining) && remaining <= fadeDuration) {
+                        this.video.volume = Math.max(0, Math.min(1, remaining / fadeDuration));
+                        this.video.classList.add("is-ending");
+                    } else {
+                        this.video.volume = 1;
+                    }
+                };
 
                 gate?.classList.add("is-hidden");
                 if (errorPanel) errorPanel.hidden = true;
@@ -768,6 +779,8 @@
                 }
 
                 this.video.onended = () => {
+                    this.video.volume = 0;
+                    this.video.classList.add("is-ending");
                     state.prologueComplete = true;
                     continueButton?.removeAttribute("hidden");
                     continueButton?.classList.add("is-visible");
@@ -1037,12 +1050,13 @@
                 missions: "Voici les étapes de la mission et les traces qui les relient.",
                 music: "Le fond sonore est prêt. La chanson d’anniversaire finale sera ajoutée quand Emmanuel l’aura générée.",
                 classified: publicMode ? "Accès refusé. Ce dossier est réservé au parcours Jessica." : "Dossier classifié ouvert. Ces éléments font partie de la surprise privée.",
-                transmission: publicMode ? "La transmission finale est réservée au parcours Jessica." : "Dernière étape : la transmission personnelle."
+                transmission: publicMode ? "La transmission finale est réservée au parcours Jessica." : "Dernière étape : la transmission personnelle.",
+                specialty: publicMode ? "Ce message personnel attend Jessica." : "Une petite attention pour prendre soin de toi."
             };
             JessyIA.say(hints[module] || "J’analyse cette section.");
-            const idx = {archives:"01", memories:"02", missions:"03", music:"04", classified:"05", transmission:"06"}[module] || "00";
+            const idx = {archives:"01", memories:"02", missions:"03", music:"04", classified:"05", transmission:"06", specialty:"07"}[module] || "00";
             DOM.moduleWindowCode.textContent = `MODULE // ${idx}`;
-            DOM.moduleWindowTitle.textContent = ({archives:"ARCHIVES", memories:"SOUVENIRS", missions:"MISSIONS", music:"MUSIC", classified:"CLASSIFIED", transmission:"TRANSMISSION"})[module] || "MODULE";
+            DOM.moduleWindowTitle.textContent = ({archives:"ARCHIVES", memories:"SOUVENIRS", missions:"MISSIONS", music:"MUSIC", classified:"CLASSIFIED", transmission:"TRANSMISSION", specialty:"SPECIALTY FOR YOU"})[module] || "MODULE";
             if (module === "archives") { this.openArchiveHub(); return; }
             if (module === "music" && publicMode) {
                 DOM.moduleContent.innerHTML = `<section class="md11-content-card"><p class="archive-section-label">IDENTITY CHECK</p><h3>Cette musique attend Jessica.</h3><p>La transmission musicale fait partie de la surprise personnelle.</p></section>`;
@@ -1053,7 +1067,8 @@
             if (module === "music") { this.renderMusic(); return; }
             if (module === "missions") { this.renderMissions(); return; }
             if (module === "transmission" && !publicMode) { this.renderTransmission(); return; }
-            if (module === "memories" || module === "classified" || module === "transmission") {
+            if (module === "specialty" && !publicMode) { this.renderSpecialty(); return; }
+            if (module === "memories" || module === "classified" || module === "transmission" || module === "specialty") {
                 DOM.moduleContent.innerHTML = `<section class="md11-content-card"><p class="archive-section-label">ACCESS CONTROL</p><h3>ACCÈS RESTREINT</h3><p>Cette section est disponible uniquement après validation des deux codes du parcours Jessica.</p></section>`;
             }
             this.openLayer();
@@ -1132,6 +1147,56 @@
             DOM.moduleContent.querySelector('[data-go="album"]')?.addEventListener('click',()=>this.openAlbum());DOM.moduleContent.querySelector('[data-go="videos"]')?.addEventListener('click',()=>this.openVideos());this.openLayer();
         },
 
+        renderSpecialty() {
+            const message = "Jessica, prends bien soin de toi. J’espère que tu retrouveras très vite toute ton énergie. Repose-toi, avance à ton rythme et laisse-toi le temps de récupérer. Je t’envoie plein de courage et un prompt rétablissement. 💙";
+
+            DOM.moduleContent.innerHTML = `
+                <section class="md11-content-card specialty-room">
+                    <p class="archive-section-label">PRIVATE CARE // A MESSAGE FOR YOU</p>
+                    <h3>Une petite attention pour toi, Jessica 💙</h3>
+                    <div class="specialty-photo-frame">
+                        <img src="assets/recovery-hand.jpg" alt="Photographie en noir et blanc d'une main" loading="lazy" decoding="async">
+                    </div>
+                    <p class="specialty-message"></p>
+                    <div class="specialty-voice-status" role="status" aria-live="polite">MESSAGE PERSONNEL // À TON RYTHME</div>
+                    <div class="specialty-actions">
+                        <button class="md11-button" type="button" data-specialty-play>▶ ÉCOUTER LE MESSAGE</button>
+                        <button class="md11-button" type="button" data-specialty-stop>ARRÊTER LA VOIX</button>
+                    </div>
+                </section>`;
+
+            DOM.moduleContent.querySelector(".specialty-message").textContent = message;
+            const status = DOM.moduleContent.querySelector(".specialty-voice-status");
+
+            const stopVoice = () => {
+                if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+                status.textContent = "LECTURE ARRÊTÉE";
+            };
+
+            DOM.moduleContent.querySelector("[data-specialty-play]")?.addEventListener("click", () => {
+                if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+                    status.textContent = "LECTURE VOCALE NON DISPONIBLE SUR CE NAVIGATEUR";
+                    return;
+                }
+
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.lang = "fr-FR";
+                utterance.rate = 0.88;
+                utterance.pitch = 1.02;
+                utterance.volume = 1;
+                utterance.onstart = () => status.textContent = "LECTURE DU MESSAGE EN COURS…";
+                utterance.onend = () => status.textContent = "MESSAGE TERMINÉ 💙";
+                utterance.onerror = () => status.textContent = "IMPOSSIBLE DE LIRE LE MESSAGE VOCAL";
+                status.textContent = "PRÉPARATION DE LA VOIX…";
+                window.speechSynthesis.speak(utterance);
+            });
+
+            DOM.moduleContent.querySelector("[data-specialty-stop]")?.addEventListener("click", stopVoice);
+            this.openLayer();
+            AudioEngine.play("zoom", 0.22);
+        },
+
         renderTransmission() {
             DOM.moduleContent.innerHTML=`<section class="md11-content-card transmission-room"><p class="archive-section-label">FINAL TRANSMISSION // 11.11</p><h3>🎂🎉 Je t’attendais, Jessica.</h3><p>Bonne arrivée et joyeux anniversaire ! 🥳💙</p><p>Je voulais que tu puisses découvrir chaque détail à ton rythme. Cette journée est à toi.</p><button class="md11-button" data-go="archives">RETOUR AUX ARCHIVES</button></section>`;DOM.moduleContent.querySelector('[data-go="archives"]')?.addEventListener('click',()=>this.openArchiveHub());this.openLayer();
         },
@@ -1159,6 +1224,7 @@
         },
 
         close() {
+            if ("speechSynthesis" in window) window.speechSynthesis.cancel();
             DOM.moduleLayer.classList.remove("is-open");
             DOM.moduleLayer.setAttribute("aria-hidden", "true");
             DOM.moduleWindow.setAttribute("aria-hidden", "true");

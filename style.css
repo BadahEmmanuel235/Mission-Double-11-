@@ -1232,3 +1232,59 @@ body.md11-public-mode #stationIdentity,body.md11-public-mode .jessy-station-pane
 .md11-post-song-card__flowers{color:#f1d5a5;letter-spacing:.5rem;font-size:1.4rem;text-align:center;}
 @keyframes md11CardPulse{0%,100%{box-shadow:0 0 25px rgba(255,210,140,.22);filter:brightness(1)}50%{box-shadow:0 0 55px rgba(255,225,170,.65);filter:brightness(1.18)}}
 @media(prefers-reduced-motion:reduce){.md11-post-song-card.is-visible{animation:none;}}
+
+
+/* ============================================================
+   MD11 — SPECIALTY FOR YOU // PRIVATE CARE
+   ============================================================ */
+.specialty-room {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+.specialty-room h3 { margin: 0; }
+.specialty-photo-frame {
+    width: min(100%, 340px);
+    overflow: hidden;
+    border: 1px solid rgba(150, 190, 220, .35);
+    border-radius: 14px;
+    background: #05070c;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, .32);
+}
+.specialty-photo-frame img {
+    display: block;
+    width: 100%;
+    max-height: 390px;
+    object-fit: contain;
+    filter: grayscale(1);
+}
+.specialty-message {
+    max-width: 54ch;
+    margin: 0 auto;
+    line-height: 1.85;
+    color: rgba(235, 243, 250, .92);
+}
+.specialty-voice-status {
+    font-family: var(--font-tech);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    color: rgba(150, 205, 235, .85);
+}
+.specialty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .7rem;
+}
+.entry-sequence-video { transition: opacity 2.8s ease; }
+.entry-sequence-video.is-ending { opacity: 0; }
+
+@media (max-width: 600px) {
+    .specialty-photo-frame { width: min(100%, 290px); }
+    .specialty-actions { width: 100%; }
+    .specialty-actions .md11-button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .entry-sequence-video { transition-duration: .01ms; }
+}
